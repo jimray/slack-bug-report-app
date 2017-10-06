@@ -7,6 +7,8 @@ const qs = require('querystring');
 
 const app = express();
 
+app.set('port', process.env.PORT || 3000);
+
 /*
  * Parse application/x-www-form-urlencoded && application/json
  */
@@ -18,6 +20,7 @@ app.get('/', (req, res) => {
   ' instructions in the README to configure the Slack App and your environment variables.</p>');
 });
 
+<<<<<<< HEAD
 app.post('/slack/events/commands', (req, res) => {
   const { token } = req.body;
 
@@ -38,4 +41,8 @@ app.post('/slack/events/components', (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
+=======
+app.listen(app.get('port'), () => {
+  console.log(`App listening on port ${app.get('port')}!`);
+>>>>>>> step1
 });
