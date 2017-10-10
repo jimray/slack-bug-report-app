@@ -21,9 +21,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/slack/events/commands', (req, res) => {
-  const { token } = req.body;
+  const { token, text, response_url } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // echo the text back to Slack
+    axios.post(response_url, text);
   } else { res.sendStatus(500); }
 });
 
