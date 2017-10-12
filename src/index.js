@@ -17,11 +17,18 @@ app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/*
+ * Default endpoint
+ */
 app.get('/', (req, res) => {
   res.send('<h2>The Dialog Slash Command app is running</h2> <p>Follow the' +
   ' instructions in the README to configure the Slack App and your environment variables.</p>');
 });
 
+/*
+ * Endpoint to receive slash commands from Slack.
+ * Launches the dialog for the bug tracking ticket
+ */
 app.post('/slack/events/commands', (req, res) => {
   // `response_url` is no longer required, however `trigger_id` is for the dialog
   const { token, text, trigger_id } = req.body;
@@ -44,6 +51,9 @@ app.post('/slack/events/components', (req, res) => {
   } else { res.sendStatus(500); }
 });
 
+/*
+ * Start the express server
+ */
 app.listen(app.get('port'), () => {
   console.log(`App listening on port ${app.get('port')}!`);
 });
