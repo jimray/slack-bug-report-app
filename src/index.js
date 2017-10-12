@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const qs = require('querystring');
 
+const dialogTemplate = require('./dialog');
+
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
@@ -21,22 +23,24 @@ app.get('/', (req, res) => {
 });
 
 app.post('/slack/events/commands', (req, res) => {
-  const { token, text, response_url } = req.body;
+  // `response_url` is no longer required, however `trigger_id` is for the dialog
+  const { token, text, trigger_id } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-    // echo the text back to Slack
-    axios.post(response_url, text);
+    // respond to the slash command with the dialog
+    const dialog = dialogTemplate(trigger_id, text);
+    axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog)).then(result => console.log(result));
   } else { res.sendStatus(500); }
 });
 
 /*
  * Endpoint to receive interactive message events from Slack.
- * Checks verification token and then update priority.
  */
 app.post('/slack/events/components', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
   if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // Dialog processing logic goes here
   } else { res.sendStatus(500); }
 });
 
