@@ -29,17 +29,6 @@ app.post('/slack/events/commands', (req, res) => {
   } else { res.sendStatus(500); }
 });
 
-/*
- * Endpoint to receive interactive message events from Slack.
- * Checks verification token and then update priority.
- */
-app.post('/slack/events/components', (req, res) => {
-  const body = JSON.parse(req.body.payload);
-
-  if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-  } else { res.sendStatus(500); }
-});
-
 app.listen(app.get('port'), () => {
   console.log(`App listening on port ${app.get('port')}!`);
 });
