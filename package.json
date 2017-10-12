@@ -7,6 +7,9 @@
     "start": "node src/index.js"
   },
   "author": "Sachin Ranchod <sranchod@slack-corp.com>",
+  "contributors": [
+    "Jim Ray <jimray@slack-corp.com>"
+  ],
   "dependencies": {
     "axios": "^0.16.0",
     "body-parser": "^1.17.1",
