@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
  * Endpoint to handle slash commands from Slack
  * Echos submitted text back to user
  */
-app.post('/slack/events/commands', (req, res) => {
+app.post('/slack/commands', (req, res) => {
   const { token, text, response_url } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
