@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
  * Endpoint to receive slash commands from Slack.
  * Launches the dialog for the bug tracking ticket
  */
-app.post('/slack/events/commands', (req, res) => {
+app.post('/slack/commands', (req, res) => {
   // `response_url` is no longer required, however `trigger_id` is for the dialog
   const { token, text, trigger_id } = req.body;
 
@@ -43,7 +43,7 @@ app.post('/slack/events/commands', (req, res) => {
 /*
  * Endpoint to receive interactive message events from Slack.
  */
-app.post('/slack/events/components', (req, res) => {
+app.post('/slack/components', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
   if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
