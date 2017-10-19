@@ -34,6 +34,9 @@ app.post('/slack/commands', (req, res) => {
   const { token, text, trigger_id } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // respond immediately!
+    res.status(200).end();
+
     // respond to the slash command with the dialog
     const dialog = dialogTemplate(trigger_id, text);
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog)).then(result => console.log(result));
@@ -47,6 +50,9 @@ app.post('/slack/components', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
   if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // respond immediately!
+    res.status(200).end();
+
     // Dialog processing logic goes here
   } else { res.sendStatus(500); }
 });
