@@ -35,7 +35,7 @@ app.post('/slack/commands', (req, res) => {
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     // respond immediately!
-    res.status(200).end();
+    res.sendStatus(200);
 
     // respond to the slash command with the dialog
     const dialog = dialogTemplate(trigger_id, text);
@@ -51,7 +51,7 @@ app.post('/slack/components', (req, res) => {
 
   if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     // respond immediately!
-    res.status(200).end();
+    res.sendStatus(200);
 
     // Dialog processing logic goes here
   } else { res.sendStatus(500); }
