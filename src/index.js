@@ -28,12 +28,12 @@ app.get('/', (req, res) => {
  * Echos submitted text back to user
  */
 app.post('/slack/commands', (req, res) => {
-  // respond immediately!
-  res.status(200).end();
   
   const { token, text, response_url } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // respond immediately!
+    res.sendStatus(200);
     axios.post(response_url, text);
   } else { res.sendStatus(500); }
 });
