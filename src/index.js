@@ -31,10 +31,16 @@ app.post('/slack/commands', (req, res) => {
   
   const { token, text, response_url } = req.body;
 
+  // check that the request came from Slack, otherwise return a 500 error
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     // respond immediately!
-    res.sendStatus(200);
-    axios.post(response_url, text);
+    res.status(200).end();
+
+    // echo any submitted text back to Slack the log out the text
+    axios.post(response_url, {text: text})
+    .then(function (text) {
+      console.log(text);
+    });
   } else { res.sendStatus(500); }
 });
 
