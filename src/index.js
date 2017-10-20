@@ -51,7 +51,7 @@ app.post('/slack/components', (req, res) => {
 
   if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     // respond immediately!
-    res.sendStatus(200);
+    res.status(200).end();
 
     // Dialog processing logic goes here
   } else { res.sendStatus(500); }
